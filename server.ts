@@ -8,7 +8,7 @@ import { port } from './config/config';
 
 const app = express();
 
-app.set('port', port || 3000);
+app.set('port', port);
 
 
 app.use(logger('dev'));
