@@ -4,6 +4,7 @@ import authRouter from './auth';
 import chatroomRouter from './chatroom';
 import userRouter from './user';
 import deleteRouter from './delete';
+import { errorHandler } from '../middleware/error';
 
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.use('/room', chatroomRouter);
 router.use('/users', userRouter);
 router.use('/delete', deleteRouter);
 
+router.use(errorHandler);
 
 /** catch 404 and forward to error handler */
 router.use('*', (req, res) => {

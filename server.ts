@@ -13,7 +13,7 @@ app.set('port', port || 3000);
 
 app.use(logger('dev'));
 
-app.use('/api', router);
+app.use('/api/v1', router);
 
 /** Create HTTP Server */
 const server = http.createServer(app);
