@@ -4,6 +4,7 @@ declare global {
     export interface Request {
        authToken: string;
        user: any;
+       userId: string;
     }
   }
 }

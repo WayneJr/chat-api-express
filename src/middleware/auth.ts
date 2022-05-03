@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import { asyncHandler } from './async';
-import IUser from '../interfaces/user';
+import { IUser } from '../interfaces/user';
 import { jwtSecret } from '../../config/config';
 
 
@@ -12,8 +12,8 @@ export const encode = asyncHandler(async (req: Request, res: Response, next: Nex
   // @ts-ignore
   const user: IUser = await User.findById(userId);
   const payload = {
-    userId: user._id,
-    userType: user.type
+    id: user._id,
+    type: user.type
   }
   const authToken: string = jwt.sign(payload, jwtSecret);
 
@@ -23,8 +23,8 @@ export const encode = asyncHandler(async (req: Request, res: Response, next: Nex
   next();
 });
 
-export const decode = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-  if (req.headers.authorization) {
+export const decode = async function (req: Request, res: Response, next: NextFunction) {
+  if (!req.headers.authorization) {
     return res.status(400).json({ success: false, message: 'No access token provided' });
   }
 
@@ -35,4 +35,4 @@ export const decode = asyncHandler(async (req: Request, res: Response, next: Nex
   // @ts-ignore
   req.user = decoded;
   return next();
-});
+};

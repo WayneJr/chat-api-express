@@ -1,7 +1,12 @@
-import { USER_TYPES, userTypeInterface } from '../core/constants/index';
-export default interface IUser {
+import { USER_TYPES, userType } from '../core/constants/index';
+import { Document, Model } from 'mongoose';
+export interface IUser extends Document {
   _id: string;
   firstName: string;
   lastName: string;
-  type: userTypeInterface;
+  type: userType;
+}
+
+export interface UserModel extends Model<IUser> {
+  getUserByIds(ids: string[]): any;
 }
